@@ -1,7 +1,8 @@
+#!/usr/bin/env python3
 import sys
-import numpy as np
+import statistics
 
-num_list = np.array([])
+num_list = []
 
 for value in sys.stdin:
     # Remove leading and trailng whitespace
@@ -15,7 +16,7 @@ for value in sys.stdin:
         continue
 
     # Append number and calculate stats for every iteration
-    num_list = np.append(num_list, value)
+    num_list.append(value)
     print("Iteration %s\t --> Max: %s\t Min: %s\t Median: %s\t Standard Deviation: %s" \
-        % (num_list.shape[0], np.max(num_list), np.min(num_list), np.median(num_list), np.std(num_list)))
+        % (len(num_list), max(num_list), min(num_list), statistics.median(num_list), statistics.pstdev(num_list)))
 

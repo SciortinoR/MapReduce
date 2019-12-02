@@ -1,9 +1,10 @@
+#!/usr/bin/env python3
 import sys
-import pandas as pd
+import csv
 
 # Load data
-data = pd.read_csv(sys.stdin)
+data = csv.DictReader(sys.stdin)
 
 # Prints/Passes values to reducer.py
-for value in data[sys.argv[1]].values.tolist():
-    print('%s' % value)
+for row in data:
+    print('%s' % row[sys.argv[1]])
