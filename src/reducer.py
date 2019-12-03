@@ -2,6 +2,16 @@
 import sys
 import statistics
 
+def print_stats(current_key, num_list):
+    maximum = max(num_list)
+    minimum = min(num_list)
+    print("Column: %s\t # Data Pts.: %s\t Max: %s\t Min: %s\t Median: %s\t Std. Dev.: %s\n" \
+                % (current_key, len(num_list), maximum, minimum, statistics.median(num_list), statistics.pstdev(num_list)))
+    
+    print("Normalized column values: ")
+    for value in num_list:
+        print((value - minimum) / (maximum - minimum))
+
 key = None
 current_key = None
 num_list = []
@@ -23,13 +33,11 @@ for line in sys.stdin:
         num_list.append(value)
     else:
         if current_key:
-            print("Column: %s\t # Data Points: %s\t Max: %s\t Min: %s\t Median: %s\t Standard Deviation: %s" \
-                % (current_key, len(num_list), max(num_list), min(num_list), statistics.median(num_list), statistics.pstdev(num_list)))
+            print_stats(current_key, num_list)
         num_list.clear()
         num_list.append(value)
         current_key = key
 
 # Output last value if needed
 if current_key == key:
-    print("Column: %s\t # Data Points: %s\t Max: %s\t Min: %s\t Median: %s\t Standard Deviation: %s" \
-                % (current_key, len(num_list), max(num_list), min(num_list), statistics.median(num_list), statistics.pstdev(num_list)))
+    print_stats(current_key, num_list)
