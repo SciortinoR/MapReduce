@@ -17,8 +17,7 @@ def print_stats(current_key, num_list):
     print("Minimum: %s" % minimum)
     print("Median: %s" % statistics.median(num_list))
     print("Standard Deviation: %s" % statistics.pstdev(num_list))
-    print("Value at or below which 90%% of samples are found (90th Percentile): %s\n" % percentile90(num_list))
-    
+    print("Value at or below which 90%% of samples are found (90th Percentile): %s" % percentile90(num_list)) 
     print("Normalized column values: ")
     for value in num_list:
         print((value - minimum) / (maximum - minimum))
