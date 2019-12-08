@@ -1,17 +1,22 @@
 #!/usr/bin/env python3
 import sys
+import math
 import statistics
 
 key = None
 current_key = None
 num_list = []
 
-PERCENTILE = 0.0
+PERCENTILE = 0.9
 
 def percentile():
     num_list.sort()
-    n = max(int(round(PERCENTILE * len(num_list) + 0.5)), 1)
-    return num_list[n-1]
+    index = PERCENTILE * len(num_list) + 0.5
+    if index % 0.5 == 0:
+        index = math.ceil(index)
+    else:
+        round(index)
+    return num_list[int(index) - 1]
 
 def print_stats():
     maximum = max(num_list)
