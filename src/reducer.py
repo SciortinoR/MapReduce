@@ -6,11 +6,11 @@ key = None
 current_key = None
 num_list = []
 
-PERCENTILE = 0.9
+PERCENTILE = 0.0
 
 def percentile():
     num_list.sort()
-    n = max(int(round(PERCENTILE * len(num_list) + 0.5)), 2)
+    n = max(int(round(PERCENTILE * len(num_list) + 0.5)), 1)
     return num_list[n-1]
 
 def print_stats():
