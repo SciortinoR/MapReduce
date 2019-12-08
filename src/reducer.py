@@ -2,12 +2,18 @@
 import sys
 import statistics
 
-def percentile90(num_list):
-    n = max(int(round(0.9 * len(num_list) + 0.5)), 2)
-    return num_list[n-2]
+key = None
+current_key = None
+num_list = []
 
-def print_stats(current_key, num_list):
+PERCENTILE = 0.9
+
+def percentile():
     num_list.sort()
+    n = max(int(round(PERCENTILE * len(num_list) + 0.5)), 2)
+    return num_list[n-1]
+
+def print_stats():
     maximum = max(num_list)
     minimum = min(num_list)
 
@@ -17,14 +23,11 @@ def print_stats(current_key, num_list):
     print("Minimum: %s" % minimum)
     print("Median: %s" % statistics.median(num_list))
     print("Standard Deviation: %s" % statistics.pstdev(num_list))
-    print("Value at or below which 90%% of samples are found (90th Percentile): %s" % percentile90(num_list)) 
+    print("Value below which 90%% of samples are found (90th Percentile): %s" % percentile()) 
     print("Normalized column values: ")
     for value in num_list:
         print((value - minimum) / (maximum - minimum))
 
-key = None
-current_key = None
-num_list = []
 for line in sys.stdin:
     # Remove leading and trailng whitespace
     line = line.strip()
@@ -43,11 +46,11 @@ for line in sys.stdin:
         num_list.append(value)
     else:
         if current_key:
-            print_stats(current_key, num_list)
+            print_stats()
         num_list.clear()
         num_list.append(value)
         current_key = key
 
 # Output last value if needed
 if current_key == key:
-    print_stats(current_key, num_list)
+    print_stats()
